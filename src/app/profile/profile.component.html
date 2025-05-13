@@ -1,0 +1,44 @@
+
+<form class="w-full p-3" [formGroup]="userForm">
+    <div>
+        <mat-form-field class="w-full py-1" appearance="fill">
+          <a>Nombre:</a>
+          <input matInput formControlName="name" [(ngModel)]="user.name">
+          <mat-error *ngIf="this.userForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
+        </mat-form-field>
+    </div>
+    
+    <div>
+        <mat-form-field class="w-full py-1" appearance="fill">
+            <a>Email:</a>
+          <input matInput formControlName="email" [formControl]="this.userForm.controls.email" required [(ngModel)]="user.email">
+          <mat-error *ngIf="this.userForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="w-full py-1" appearance="fill" *ngIf="data.id==''">
+        <a>Contraseña:</a>
+        <input matInput formControlName="password">
+        <mat-error *ngIf="this.userForm.controls.password.invalid">Debe ingresar un nombre</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill" *ngIf="data.id==''">
+          <a>Rol:</a>
+          <mat-select formControlName="role">
+            <mat-option value="user">User</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    
+   
+
+    
+
+    
+    <button mat-raised-button color="primary" (click)="updateUser()" *ngIf="!(data.id=='')">Aceptar</button>
+    <button mat-raised-button color="primary" (click)="createUser()" *ngIf="data.id==''">Aceptar</button>
+    <button mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
+    
+</form>
