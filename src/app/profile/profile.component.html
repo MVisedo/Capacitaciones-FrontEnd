@@ -19,7 +19,7 @@
       <mat-form-field class="w-full py-1" appearance="fill" *ngIf="data.id==''">
         <a>Contraseña:</a>
         <input matInput formControlName="password">
-        <mat-error *ngIf="this.userForm.controls.password.invalid">Debe ingresar un nombre</mat-error>
+        <mat-error *ngIf="this.userForm.controls.password.invalid">Debe ingresar una contraseña</mat-error>
       </mat-form-field>
     </div>
     <div>
@@ -29,6 +29,7 @@
             <mat-option value="user">User</mat-option>
             <mat-option value="admin">Admin</mat-option>
           </mat-select>
+          <mat-error *ngIf="this.userForm.controls.role.invalid">Debe seleccionar un rol</mat-error>
         </mat-form-field>
     </div>
     

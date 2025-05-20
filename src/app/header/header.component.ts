@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../service/api.service';
+import { AuthService } from '../service/Auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +9,9 @@ import { ApiService } from '../service/api.service';
 export class HeaderComponent implements OnInit {
   userLoginOn: boolean = false;
 
-  constructor(private apiService:ApiService){}
+  constructor(private authService:AuthService){}
   ngOnInit(): void {
-    this.apiService.currentUserLoginOn.subscribe(
+    this.authService.currentUserLoginOn.subscribe(
       {
         next:(userLoginOn) =>{
           this.userLoginOn = userLoginOn;
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   }
 
   Logout():void{
-    this.apiService.Logout()
+    this.authService.Logout()
   }
 
 }

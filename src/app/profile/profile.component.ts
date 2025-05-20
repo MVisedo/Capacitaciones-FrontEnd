@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { User } from '../service/user';
-import { ApiService } from '../service/api.service';
+import { User } from '../service/User/user';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { updateRequest } from '../service/updateRequest';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { UsersComponent } from '../users/users.component';
-import { createUserRequest } from '../service/createUserRequest';
+import { createUserRequest } from '../service/User/createUserRequest';
+import { UserService } from '../service/User/user.service';
+import { AuthService } from '../service/Auth/auth.service';
+import { UpdateUserRequest } from '../service/User/updateUserRequest';
 
 @Component({
   selector: 'app-profile',
@@ -26,8 +27,8 @@ export class ProfileComponent implements OnInit{
     
   })
 
-  constructor(private apiService:ApiService, private formBuilder: FormBuilder,private _snackBar: MatSnackBar,public dialogRef:MatDialogRef<UsersComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogConfig){
-    this.apiService.currenUserData.subscribe({
+  constructor(private userService:UserService,private authService:AuthService, private formBuilder: FormBuilder,private _snackBar: MatSnackBar,public dialogRef:MatDialogRef<UsersComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogConfig){
+    this.authService.currenUserData.subscribe({
       next: (userData) =>{
         this.user = userData;
       }
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit{
   }
   ngOnInit(): void {
     if(this.data.id != undefined){
-      this.apiService.GetUser(this.data.id).subscribe({
+      this.userService.GetUser(this.data.id).subscribe({
         next: (userData) =>{
           this.user = userData;
         }
@@ -57,20 +58,27 @@ export class ProfileComponent implements OnInit{
     return this.userForm.controls.email.hasError('email') ? 'El email no es valido' : '';
   }
   updateUser(){
-    this.apiService.UpdateUser(this.data.id+"",{name:this.userForm.get("name")?.value,email:this.userForm.get("email")?.value} as updateRequest).subscribe({
+    this.userService.UpdateUser(this.data.id+"",{name:this.userForm.get("name")?.value,email:this.userForm.get("email")?.value} as UpdateUserRequest).subscribe({
       complete:()=>{
         this._snackBar.open("Usuario actualizado","",{duration:3000})
         this.dialogRef.close()
+      },
+      error: (errorData) =>{
+          this._snackBar.open(errorData.message,"Accept",{duration:2000})
       }
+      
       
     })
   }
 
   createUser(){
-    this.apiService.CreateUser(this.userForm.value as createUserRequest).subscribe({
+    this.userService.CreateUser(this.userForm.value as createUserRequest).subscribe({
       complete:()=>{
         this._snackBar.open("Usuario creado","",{duration:3000})
         this.dialogRef.close()
+      },
+      error: (errorData) =>{
+          this._snackBar.open(errorData.message,"Accept",{duration:2000})
       }
     })
   }

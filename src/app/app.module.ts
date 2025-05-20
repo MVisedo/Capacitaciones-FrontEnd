@@ -24,6 +24,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { ProductsComponent } from './products/products.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { MensajeComponent } from './mensaje/mensaje.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +35,9 @@ import { MatSelectModule } from '@angular/material/select';
     UsersComponent,
     HeaderComponent,
     ProfileComponent,
+    ProductsComponent,
+    ProductFormComponent,
+    MensajeComponent,
   ],
   imports: [
     BrowserModule,

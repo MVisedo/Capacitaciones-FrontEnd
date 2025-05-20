@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../service/api.service';
-import { signUpRequest } from '../service/signUpRequest';
+import { signUpRequest } from '../service/Auth/signUpRequest';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../service/Auth/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SignUpComponent {
 
-  constructor(private formBuilder:FormBuilder, private apiService: ApiService,private router:Router,private _snackBar: MatSnackBar){}
+  constructor(private formBuilder:FormBuilder, private authService: AuthService,private router:Router,private _snackBar: MatSnackBar){}
 
   hide= true;
 
@@ -34,7 +34,7 @@ export class SignUpComponent {
 
   SignUp(){
       if(this.signUpForm.valid){
-        this.apiService.SignUp(this.signUpForm.value as signUpRequest).subscribe({
+        this.authService.SignUp(this.signUpForm.value as signUpRequest).subscribe({
           error: (errorData) =>{
             this.openSnackBar(errorData.message,"Accept")
           },

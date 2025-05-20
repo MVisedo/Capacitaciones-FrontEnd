@@ -1,9 +1,9 @@
 import { Component} from '@angular/core';
 import { FormBuilder, Validators} from '@angular/forms';
-import { ApiService } from '../service/api.service';
 import { Router} from '@angular/router';
-import { LoginRequest } from '../service/loginRequest';
+import { LoginRequest } from '../service/Auth/loginRequest';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../service/Auth/auth.service';
 
 
 
@@ -23,7 +23,7 @@ export class LoginComponent  {
 
 
   constructor(
-    private apiService: ApiService,
+    private authService: AuthService,
     private formBuilder:FormBuilder,
     private router:Router,
     private _snackBar: MatSnackBar
@@ -37,13 +37,13 @@ export class LoginComponent  {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action,{duration:2000});
   }
 
   
   Login(){
     if(this.loginForm.valid){
-      this.apiService.Login(this.loginForm.value as LoginRequest).subscribe({
+      this.authService.Login(this.loginForm.value as LoginRequest).subscribe({
         error: (errorData) =>{
           this.openSnackBar(errorData.message,"Accept")
         },

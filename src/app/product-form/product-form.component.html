@@ -1,0 +1,41 @@
+<form class="w-full p-3" [formGroup]="productForm">
+    <div>
+        <mat-form-field class="w-full py-1" appearance="fill">
+          <a>Nombre:</a>
+          <input matInput formControlName="name" [(ngModel)]="product.name">
+          <mat-error *ngIf="this.productForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
+        </mat-form-field>
+    </div>
+    
+    <div>
+        <mat-form-field class="w-full py-1" appearance="fill">
+            <a>Descripcion:</a>
+          <input matInput formControlName="descripcion" [(ngModel)]="product.descripcion">
+          <mat-error *ngIf="this.productForm.controls.descripcion.invalid">Debe ingresar una descripcion</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="w-full py-1" appearance="fill">
+        <a>Imagen:</a>
+        <input matInput formControlName="imagen" [(ngModel)]="product.imagen">
+        <mat-error *ngIf="this.productForm.controls.imagen.invalid">Debe ingresar una URL</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="w-full py-1" appearance="fill">
+        <input matInput type="number" formControlName="precio" [(ngModel)]="product.precio" placeholder="0">
+        <span matTextPrefix>$&nbsp;</span>
+        <mat-error *ngIf="this.productForm.controls.precio.invalid">Debe ingresar un precio</mat-error>
+      </mat-form-field>
+    </div>
+   
+
+    
+
+    
+    <button mat-raised-button color="primary" (click)="updateProduct()" *ngIf="!(data.id=='')">Aceptar</button>
+    <button mat-raised-button color="primary" (click)="createProduct()" *ngIf="data.id==''">Aceptar</button>
+    <button mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
+    
+</form>

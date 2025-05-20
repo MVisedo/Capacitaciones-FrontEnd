@@ -9,15 +9,15 @@
   </button>
   
   <mat-menu #menu="matMenu">
-  
-    <button mat-menu-item *ngIf="userLoginOn" routerLink="profile">
-      <mat-icon>account_circle</mat-icon>
-      <span>Perfil</span>
-    </button>
 
     <button mat-menu-item *ngIf="userLoginOn" routerLink="users">
       <mat-icon>assignment_ind</mat-icon>
       <span>Usuarios</span>
+    </button>
+
+    <button mat-menu-item *ngIf="userLoginOn" routerLink="products">
+      <mat-icon>ballot</mat-icon>
+      <span>Productos</span>
     </button>
 
     <button mat-menu-item *ngIf="userLoginOn" routerLink="login" (click)="Logout()">
