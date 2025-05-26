@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../service/User/user';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../profile/profile.component';
-import { UserService } from '../service/User/user.service';
 import { MensajeComponent } from '../mensaje/mensaje.component';
+import { User } from 'src/service/User/user';
+import { UserService } from 'src/service/User/user.service';
 
 
 
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit{
   }
 
   deleteUser(id:string){
-    const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Eliminar usuario",mensaje:"¿Seguro que desea eliminar el usuario?"},})
+    const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Eliminar usuario",mensaje:"¿Seguro que desea eliminar el usuario?",aceptar:"Eliminar",cancelar:"Cancelar"},})
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
         this.userService.DeleteUser(id).subscribe(()=>{

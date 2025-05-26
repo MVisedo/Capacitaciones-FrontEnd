@@ -24,18 +24,19 @@
 
     <div>
       <mat-form-field class="w-full py-1" appearance="fill">
-        <input matInput type="number" formControlName="precio" [(ngModel)]="product.precio" placeholder="0">
-        <span matTextPrefix>$&nbsp;</span>
-        <mat-error *ngIf="this.productForm.controls.precio.invalid">Debe ingresar un precio</mat-error>
+        <a>Precio:</a>
+        <input matInput type="number" formControlName="precio" [(ngModel)]="product.precio" placeholder=0>
+        <mat-error *ngIf="this.productForm.controls.precio.invalid">Precio no valido</mat-error>
       </mat-form-field>
     </div>
    
 
     
 
-    
-    <button mat-raised-button color="primary" (click)="updateProduct()" *ngIf="!(data.id=='')">Aceptar</button>
-    <button mat-raised-button color="primary" (click)="createProduct()" *ngIf="data.id==''">Aceptar</button>
-    <button mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
+    <div class="items-center flex flex-row justify-center">
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="updateProduct()" *ngIf="!(data.id=='')">Aceptar</button>
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="createProduct()" *ngIf="data.id==''">Aceptar</button>
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="dialogRef.close()">Cancelar</button>
+    </div>
     
 </form>

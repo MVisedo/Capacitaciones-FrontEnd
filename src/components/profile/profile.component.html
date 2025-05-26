@@ -37,9 +37,10 @@
 
     
 
-    
-    <button mat-raised-button color="primary" (click)="updateUser()" *ngIf="!(data.id=='')">Aceptar</button>
-    <button mat-raised-button color="primary" (click)="createUser()" *ngIf="data.id==''">Aceptar</button>
-    <button mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
+    <div class="items-center flex flex-row justify-center">
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="updateUser()" *ngIf="!(data.id=='')">Aceptar</button>
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="createUser()" *ngIf="data.id==''">Aceptar</button>
+      <button class="m-1 p-2" mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
+    </div>
     
 </form>

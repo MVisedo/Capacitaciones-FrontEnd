@@ -1,4 +1,3 @@
-import { Dialog, DialogConfig } from '@angular/cdk/dialog';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductsComponent } from '../products/products.component';

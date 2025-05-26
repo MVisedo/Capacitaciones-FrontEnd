@@ -1,9 +1,10 @@
 import { Component} from '@angular/core';
 import { FormBuilder, Validators} from '@angular/forms';
 import { Router} from '@angular/router';
-import { LoginRequest } from '../service/Auth/loginRequest';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../service/Auth/auth.service';
+import { AuthService } from 'src/service/Auth/auth.service';
+import { LoginRequest } from 'src/service/Auth/loginRequest';
+
 
 
 

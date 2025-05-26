@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { User } from '../service/User/user';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { UsersComponent } from '../users/users.component';
-import { createUserRequest } from '../service/User/createUserRequest';
-import { UserService } from '../service/User/user.service';
-import { AuthService } from '../service/Auth/auth.service';
-import { UpdateUserRequest } from '../service/User/updateUserRequest';
+import { User } from 'src/service/User/user';
+import { UserService } from 'src/service/User/user.service';
+import { AuthService } from 'src/service/Auth/auth.service';
+import { createUserRequest } from 'src/service/User/createUserRequest';
+import { UpdateUserRequest } from 'src/service/User/updateUserRequest';
+
 
 @Component({
   selector: 'app-profile',

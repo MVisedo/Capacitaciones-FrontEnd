@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { signUpRequest } from '../service/Auth/signUpRequest';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../service/Auth/auth.service';
+import { AuthService } from 'src/service/Auth/auth.service';
+import { signUpRequest } from 'src/service/Auth/signUpRequest';
+
 
 @Component({
   selector: 'app-sign-up',

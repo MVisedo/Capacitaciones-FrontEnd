@@ -7,26 +7,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginComponent } from './login/login.component';
-import { UsersComponent } from './users/users.component';
-import { ProfileComponent } from './profile/profile.component';
-import { JwtInterceptorService } from './service/jwt-interceptor.service';
-import { ErrorInterceptorService } from './service/error-interceptor.service';
+import { SignUpComponent } from '../components/sign-up/sign-up.component';
+import { LoginComponent } from '../components/login/login.component';
+import { UsersComponent } from '../components/users/users.component';
+import { ProfileComponent } from '../components/profile/profile.component';
+
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../components/header/header.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { ProductsComponent } from './products/products.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { MensajeComponent } from './mensaje/mensaje.component';
+import { ProductsComponent } from '../components/products/products.component';
+import { ProductFormComponent } from '../components/product-form/product-form.component';
+import { MensajeComponent } from '../components/mensaje/mensaje.component';
+import { JwtInterceptorService } from 'src/service/Interceptor/jwt-interceptor.service';
+import { ErrorInterceptorService } from 'src/service/Interceptor/error-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { MensajeComponent } from './mensaje/mensaje.component';
     ProductsComponent,
     ProductFormComponent,
     MensajeComponent,
+    
   ],
   imports: [
     BrowserModule,
