@@ -8,7 +8,7 @@ import { AuthService } from 'src/service/Auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   userLoginOn: boolean = false;
-
+  userIsAdmin: boolean = false;
   constructor(private authService:AuthService){}
   ngOnInit(): void {
     this.authService.currentUserLoginOn.subscribe(
@@ -18,6 +18,14 @@ export class HeaderComponent implements OnInit {
         }
       }
     )
+    this.authService.currentUserIsAdmin.subscribe(
+      {
+        next:(userIsAdmin)=>{
+          this.userIsAdmin = userIsAdmin;
+        }
+      }
+    )
+
   }
 
   Logout():void{

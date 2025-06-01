@@ -10,16 +10,21 @@
   
   <mat-menu #menu="matMenu">
 
-    <button mat-menu-item *ngIf="userLoginOn" routerLink="users">
+    <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="users">
       <mat-icon>assignment_ind</mat-icon>
       <span>Usuarios</span>
     </button>
 
-    <button mat-menu-item *ngIf="userLoginOn" routerLink="products">
+    <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="products">
       <mat-icon>ballot</mat-icon>
       <span>Productos</span>
     </button>
-
+   
+    <button mat-menu-item *ngIf="userLoginOn" routerLink="store">
+      <mat-icon>store</mat-icon>
+      <span>Tienda</span>
+    </button>
+    
     <button mat-menu-item *ngIf="userLoginOn" routerLink="login" (click)="Logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Cerrar sesion</span>

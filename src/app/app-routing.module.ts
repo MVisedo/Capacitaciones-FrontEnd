@@ -7,6 +7,7 @@ import { ProductsComponent } from 'src/components/products/products.component';
 import { LoginComponent } from 'src/components/login/login.component';
 import { NoAuthGuard } from 'src/service/AuthGuard/no-auth.guard';
 import { AuthGuard } from 'src/service/AuthGuard/auth.guard';
+import { StoreComponent } from 'src/components/store/store.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path :'sign-up',component: SignUpComponent,canActivate:[NoAuthGuard]},
   
   { path :'users',component: UsersComponent,canActivate:[AuthGuard]},
-  { path :'products',component: ProductsComponent,canActivate:[AuthGuard]}
+  { path :'products',component: ProductsComponent,canActivate:[AuthGuard]},
+  { path :'store',component: StoreComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({

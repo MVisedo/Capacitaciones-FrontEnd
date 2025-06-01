@@ -50,7 +50,7 @@ export class LoginComponent  {
         },
         complete: () =>{
           this.loginForm.reset();
-          this.router.navigateByUrl('/users');
+          this.router.navigateByUrl('/store');
         }
       })
     }

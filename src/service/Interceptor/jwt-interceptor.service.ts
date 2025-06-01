@@ -33,8 +33,7 @@ export class JwtInterceptorService implements HttpInterceptor {
         if (error.status === 403) {
           const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Permiso denegado",mensaje:"Usted no esta autorizado para acceder a este recurso",aceptar:"Aceptar"},})
           dialogRef.afterClosed().subscribe(()=>{
-            this.authService.Logout()
-            this.router.navigate(["/login"])
+            this.router.navigate(["/store"])
           })
         }
 

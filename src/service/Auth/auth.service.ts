@@ -10,6 +10,7 @@ import { signUpRequest } from "./signUpRequest";
 })
 export class AuthService {
     currentUserLoginOn : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    currentUserIsAdmin : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     currenToken : BehaviorSubject<String> = new BehaviorSubject<String>("")
     currenUserData : BehaviorSubject<User> = new BehaviorSubject<User>({
         id:"",
@@ -22,6 +23,7 @@ export class AuthService {
     constructor(private httpCliente: HttpClient) { 
         this.currentUserLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token")!= null);
         this.currenToken = new BehaviorSubject<String>(sessionStorage.getItem("token") || "");
+        
     }
 
       Login(credentials: LoginRequest):Observable<any>{
@@ -32,6 +34,7 @@ export class AuthService {
             this.currenUserData.next(userData.user);
             this.currentUserLoginOn.next(true);
             this.currenToken.next(userData.tokens.access.token);
+            this.currentUserIsAdmin.next(userData.user.role == "admin");
     
           }),
           catchError(this.handleError)
@@ -41,6 +44,7 @@ export class AuthService {
       Logout():void{
         sessionStorage.removeItem("token");
         this.currentUserLoginOn.next(false);
+        this.currentUserIsAdmin.next(false);
       }
     
       SignUp(userData: signUpRequest):Observable<any>{
@@ -53,6 +57,7 @@ export class AuthService {
           catchError(this.handleError)
         )
       }
+
 
       private handleError(error:HttpErrorResponse){
           

@@ -27,7 +27,8 @@ constructor(private productService: ProductService, private userService: UserSer
     this.productService.GetAllProducts().subscribe({
       next:(productsData)=>{
         this.ProductList = productsData.results
-
+      },
+      complete:()=>{
         this.ProductList.forEach(product => {
           this.userService.GetUser(product.user).subscribe({
           next:(userData)=>{
@@ -36,8 +37,7 @@ constructor(private productService: ProductService, private userService: UserSer
           },
         });
         })
-      },
-      
+      }
     })
     
   }
