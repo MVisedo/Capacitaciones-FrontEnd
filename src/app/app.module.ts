@@ -34,6 +34,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatCardModule} from '@angular/material/card';
     MensajeComponent,
     StoreComponent,
     ProductCardComponent,
+    
     
   ],
   imports: [
@@ -65,7 +67,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},

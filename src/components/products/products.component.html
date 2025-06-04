@@ -1,5 +1,6 @@
 <div class=" w-screen h-screen flex flex-col items-center bg-slate-100 p-10">
     <h1 class="text-center underline">Productos</h1>
+
     <table mat-table [dataSource]="ProductList" class="mat-elevation-z8">
     
         <ng-container matColumnDef="name">
@@ -10,7 +11,7 @@
     
         <ng-container matColumnDef="descripcion">
          <th mat-header-cell *matHeaderCellDef class="w-1/5"> Descripcion </th>
-         <td mat-cell *matCellDef="let product" class="w-1/5"> {{product.descripcion}} </td>
+         <td mat-cell *matCellDef="let product" class="w-1/5 max-w-screen-sm"> {{product.descripcion}} </td>
         </ng-container>
   
     
@@ -31,7 +32,7 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let product" class=" min-w-32"> 
                 <div class="flex justify-end">
-                    <button mat-icon-button (click)="updatedUser(product.id)">
+                    <button mat-icon-button (click)="updatedProduct(product.id)">
                         <mat-icon class="text-yellow-500">create</mat-icon>
                     </button>
         
@@ -46,6 +47,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <mat-paginator class="self-end m-4"
+            [length]="totalProducts"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+    </mat-paginator>
 
     <button class="p-3 m-3" mat-raised-button color="primary" (click)="createProduct()">Agregar producto</button>
 </div>  

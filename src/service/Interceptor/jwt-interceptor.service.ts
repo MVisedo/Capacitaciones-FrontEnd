@@ -36,6 +36,13 @@ export class JwtInterceptorService implements HttpInterceptor {
             this.router.navigate(["/store"])
           })
         }
+        if (error.status === 401) {
+          const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Credenciales caducadas",mensaje:"Por favor vuelva a iniciar sesion",aceptar:"Aceptar"},})
+          dialogRef.afterClosed().subscribe(()=>{
+            this.authService.Logout();
+            this.router.navigate(["/login"])
+          })
+        }
 
         return throwError(() => error);
       })

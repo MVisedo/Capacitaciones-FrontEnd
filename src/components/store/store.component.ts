@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/service/Product/product';
 import { ProductService } from 'src/service/Product/product.service';
@@ -12,7 +13,7 @@ export class StoreComponent implements OnInit{
 
   productList:Product[] = []
     getProducts(){
-    this.productService.GetAllProducts().subscribe({
+    this.productService.GetAllProducts({page:1,limit:5}).subscribe({
       next:(productsData)=>{
         this.productList = productsData.results
       },

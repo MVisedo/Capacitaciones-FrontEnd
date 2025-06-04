@@ -5,5 +5,5 @@ export interface ProductsList{
     page:number,
     limit:number,
     totalPages:number,
-    totalUsers:number
+    totalResults:number
 }

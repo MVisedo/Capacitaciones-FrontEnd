@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http"
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { catchError, Observable, throwError } from "rxjs"
 import { Product } from "./product"
@@ -6,6 +6,7 @@ import { ProductsList } from "./productList"
 import { UpdateUserRequest } from "../User/updateUserRequest"
 import { CreateProductRequest } from "./createProductRequest"
 import { UpdateProductRequest } from "./updateProductRequest"
+import { queryProducts } from "./queryProducts"
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,8 @@ export class ProductService {
     )
   }
 
-  GetAllProducts():Observable<ProductsList>{
-    return this.httpCliente.get<ProductsList>("http://localhost:3000/v1/products").pipe(
+  GetAllProducts(query:queryProducts):Observable<ProductsList>{
+    return this.httpCliente.get<ProductsList>("http://localhost:3000/v1/products",{ params:{page:query.page,limit:query.limit} }).pipe(
       catchError(this.handleError)
     )
   }

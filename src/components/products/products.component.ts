@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MensajeComponent } from '../mensaje/mensaje.component';
@@ -6,6 +6,10 @@ import { Product } from 'src/service/Product/product';
 import { ProductService } from 'src/service/Product/product.service';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { UserService } from 'src/service/User/user.service';
+import { HttpParams } from '@angular/common/http';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { queryProducts } from 'src/service/Product/queryProducts';
+
 
 @Component({
   selector: 'app-products',
@@ -14,26 +18,38 @@ import { UserService } from 'src/service/User/user.service';
 })
 export class ProductsComponent implements OnInit {
 
-  ProductList: Product[]=[]
+  ProductList: Product[]=[];
   userName:string = ""
+  query:queryProducts = {page:1,limit:10}
+  totalProducts:number = 0
 
 constructor(private productService: ProductService, private userService: UserService,private dialog: MatDialog,private _snackBar: MatSnackBar){}
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.paginator.page.subscribe((event: PageEvent) => {
+      
+      this.query.page = event.pageIndex+1
+      this.query.limit = event.pageSize
+      this.getProducts()
+    })
+  }
   ngOnInit(): void {
     this.getProducts()
   }
 
   getProducts(){
-    this.productService.GetAllProducts().subscribe({
+    this.productService.GetAllProducts(this.query).subscribe({
       next:(productsData)=>{
         this.ProductList = productsData.results
+        this.totalProducts = productsData.totalResults
       },
       complete:()=>{
         this.ProductList.forEach(product => {
           this.userService.GetUser(product.user).subscribe({
           next:(userData)=>{
             product.user = userData.email
-            
           },
         });
         })
@@ -45,7 +61,7 @@ constructor(private productService: ProductService, private userService: UserSer
 
   displayedColumns: string[] = ['name', 'descripcion', 'user', 'precio','buttons'];
   
-  updatedUser(id:string): void {
+  updatedProduct(id:string): void {
     const dialogRef = this.dialog.open(ProductFormComponent, {data: {id:id},})
     dialogRef.afterClosed().subscribe(()=>{
       this.getProducts()
