@@ -47,5 +47,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
+    <mat-paginator class="self-end m-4"
+            [length]="totalUsers"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+    </mat-paginator>
+
     <button class="p-3 m-3" mat-raised-button color="primary" (click)="createUser()">Agregar usuario</button>
 </div>  

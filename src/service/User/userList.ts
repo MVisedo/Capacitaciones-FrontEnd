@@ -5,5 +5,5 @@ export interface UsersList{
     page:number,
     limit:number,
     totalPages:number,
-    totalUsers:number
+    totalResults:number
 }

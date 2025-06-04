@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../profile/profile.component';
 import { MensajeComponent } from '../mensaje/mensaje.component';
 import { User } from 'src/service/User/user';
 import { UserService } from 'src/service/User/user.service';
+import { queryUsers } from 'src/service/User/queryUsers';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 
 
@@ -18,17 +20,31 @@ import { UserService } from 'src/service/User/user.service';
 })
 export class UsersComponent implements OnInit{
   UsersList: User[]=[]
+  query:queryUsers = {page:1,limit:10}
+  totalUsers:number = 0
 
   constructor(private userService: UserService, private dialog: MatDialog,private _snackBar: MatSnackBar){}
 
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+    ngAfterViewInit() {
+      this.paginator.page.subscribe((event: PageEvent) => {
+        
+        this.query.page = event.pageIndex+1
+        this.query.limit = event.pageSize
+        this.getUsers()
+      })
+    }
   ngOnInit(): void {
     this.getUsers()
   }
 
   getUsers(){
-    this.userService.GetAllUsers().subscribe({
+    this.userService.GetAllUsers(this.query).subscribe({
       next:(usersData)=>{
         this.UsersList = usersData.results
+        this.totalUsers = usersData.totalResults
       },
       
     })

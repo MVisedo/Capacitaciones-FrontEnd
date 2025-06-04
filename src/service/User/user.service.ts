@@ -5,6 +5,7 @@ import { User } from "./user"
 import { createUserRequest } from "./createUserRequest"
 import { UpdateUserRequest } from "./updateUserRequest"
 import { UsersList } from "./userList"
+import { queryUsers } from "./queryUsers"
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class UserService {
         )
     }
 
-    GetAllUsers():Observable<UsersList>{
-        return this.httpCliente.get<UsersList>("http://localhost:3000/v1/users").pipe(
+    GetAllUsers(query:queryUsers):Observable<UsersList>{
+        return this.httpCliente.get<UsersList>("http://localhost:3000/v1/users",{ params:{page:query.page,limit:query.limit} }).pipe(
             catchError(this.handleError)
         )
     }
