@@ -8,20 +8,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
-import { SignUpComponent } from '../components/sign-up/sign-up.component';
-import { LoginComponent } from '../components/login/login.component';
-import { UsersComponent } from '../components/users/users.component';
-import { ProfileComponent } from '../components/profile/profile.component';
-import { StoreComponent } from '../components/store/store.component';
-import { ProductCardComponent } from '../components/product-card/product-card.component';
-import { HeaderComponent } from '../components/header/header.component';
-import { ProductsComponent } from '../components/products/products.component';
-import { ProductFormComponent } from '../components/product-form/product-form.component';
-import { MensajeComponent } from '../components/mensaje/mensaje.component';
+import { SignUpComponent } from './features/auth/pages/sign-up/sign-up.component';
+import { LoginComponent } from './features/auth/pages/login/login.component';
+import { UsersComponent } from './features/users/pages/users/users.component';
+import { ProfileComponent } from './features/users/components/profile/profile.component';
+import { StoreComponent } from './features/products/pages/store/store.component';
+import { ProductCardComponent } from './features/products/components/product-card/product-card.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { ProductsComponent } from './features/products/pages/products/products.component';
+import { ProductFormComponent } from './features/products/components/product-form/product-form.component';
+import { MensajeComponent } from './shared/components/mensaje/mensaje.component';
 
 //Services
-import { JwtInterceptorService } from 'src/service/Interceptor/jwt-interceptor.service';
-import { ErrorInterceptorService } from 'src/service/Interceptor/error-interceptor.service';
+import { JwtInterceptorService } from 'src/app/core/interceptors/jwt-interceptor.service';
+import { ErrorInterceptorService } from 'src/app/core/interceptors/error-interceptor.service';
 
 //Material
 import {MatFormFieldModule} from '@angular/material/form-field';
