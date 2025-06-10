@@ -7,3 +7,8 @@ export interface ProductsList{
     totalPages:number,
     totalResults:number
 }
+
+export interface ProductStock{
+    product:Product,
+    stock:{cantidad:number}
+}

@@ -4,10 +4,28 @@
   <div class="p-4">
     <h2 class="text-xl font-semibold mb-2 text-gray-800">{{productCard.name}}</h2>
     <p class="text-gray-600 text-sm mb-4 line-clamp-2 h-10">{{productCard.descripcion}}</p>
+    <p class="text-gray-600 text-sm mb-4 line-clamp-2 h-10">Stock: {{cantidadActual}}</p>
     <div class="flex items-end justify-between">
       <span class="text-lg font-bold text-green-600">${{productCard.precio}}</span>
-      <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Agregar</button>
     </div>
+    <div>
+      <mat-accordion class="w-full flex items-center flex-row">
+        <mat-expansion-panel class="w-full bg-blue-600 ">
+          <mat-expansion-panel-header class="w-full  bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            Comprar
+          </mat-expansion-panel-header>
+
+          <form [formGroup]="buyForm">
+            <mat-form-field class="max-w-40">
+              <mat-label>Cantidad</mat-label>
+              <input formControlName="cantidad" matInput>
+            </mat-form-field>
+            <button (click)="comprar()" class=" text-blue-700 bg-slate-100 px-4 py-2 m-1 rounded-lg hover:bg-gray-400 transition">OK</button>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    
   </div>
 </div>
 

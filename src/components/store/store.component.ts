@@ -13,7 +13,7 @@ export class StoreComponent implements OnInit{
 
   productList:Product[] = []
     getProducts(){
-    this.productService.GetAllProducts({page:1,limit:5}).subscribe({
+    this.productService.GetAllProducts({page:1,limit:100}).subscribe({
       next:(productsData)=>{
         this.productList = productsData.results
       },
@@ -25,4 +25,5 @@ export class StoreComponent implements OnInit{
   ngOnInit(): void {
     this.getProducts()
   }
+
 }
