@@ -25,8 +25,8 @@
       <span>Tienda</span>
     </button>
     
-     <button mat-menu-item *ngIf="userLoginOn" routerLink="products/stock">
-      <mat-icon>store</mat-icon>
+     <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="products/stock">
+      <mat-icon>local_shipping</mat-icon>
       <span>Stock</span>
     </button>
 
