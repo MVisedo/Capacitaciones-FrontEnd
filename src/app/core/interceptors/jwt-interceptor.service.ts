@@ -33,14 +33,14 @@ export class JwtInterceptorService implements HttpInterceptor {
         if (error.status === 403) {
           const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Permiso denegado",mensaje:"Usted no esta autorizado para acceder a este recurso",aceptar:"Aceptar"},})
           dialogRef.afterClosed().subscribe(()=>{
-            this.router.navigate(["/store"])
+            this.router.navigate(["/products"])
           })
         }
         if (error.status === 401) {
           const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Credenciales caducadas",mensaje:"Por favor vuelva a iniciar sesion",aceptar:"Aceptar"},})
           dialogRef.afterClosed().subscribe(()=>{
             this.authService.Logout();
-            this.router.navigate(["/login"])
+            this.router.navigate(["/auth"])
           })
         }
 
