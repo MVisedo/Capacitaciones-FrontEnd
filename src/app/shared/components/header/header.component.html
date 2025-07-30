@@ -25,6 +25,11 @@
       <span>Tienda</span>
     </button>
     
+     <button mat-menu-item *ngIf="userLoginOn" routerLink="products/stock">
+      <mat-icon>store</mat-icon>
+      <span>Stock</span>
+    </button>
+
     <button mat-menu-item *ngIf="userLoginOn" routerLink="auth/login" (click)="Logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Cerrar sesion</span>

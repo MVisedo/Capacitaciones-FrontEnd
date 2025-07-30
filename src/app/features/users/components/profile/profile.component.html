@@ -1,46 +1,44 @@
+<form class="w-full p-6 space-y-4 bg-white rounded-xl shadow-md" [formGroup]="userForm">
+  <h2 class="text-2xl font-semibold text-center text-gray-800 mb-2">
+    {{ data.id === '' ? 'Crear Usuario' : 'Editar Usuario' }}
+  </h2>
 
-<form class="w-full p-3" [formGroup]="userForm">
-    <div>
-        <mat-form-field class="w-full py-1" appearance="fill">
-          <a>Nombre:</a>
-          <input matInput formControlName="name" [(ngModel)]="user.name">
-          <mat-error *ngIf="this.userForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
-        </mat-form-field>
-    </div>
-    
-    <div>
-        <mat-form-field class="w-full py-1" appearance="fill">
-            <a>Email:</a>
-          <input matInput formControlName="email" [formControl]="this.userForm.controls.email" required [(ngModel)]="user.email">
-          <mat-error *ngIf="this.userForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field class="w-full py-1" appearance="fill" *ngIf="data.id==''">
-        <a>Contraseña:</a>
-        <input matInput formControlName="password">
-        <mat-error *ngIf="this.userForm.controls.password.invalid">Debe ingresar una contraseña</mat-error>
-      </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill" *ngIf="data.id==''">
-          <a>Rol:</a>
-          <mat-select formControlName="role">
-            <mat-option value="user">User</mat-option>
-            <mat-option value="admin">Admin</mat-option>
-          </mat-select>
-          <mat-error *ngIf="this.userForm.controls.role.invalid">Debe seleccionar un rol</mat-error>
-        </mat-form-field>
-    </div>
-    
-   
+  <!-- Nombre -->
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" [(ngModel)]="user.name" />
+    <mat-error *ngIf="userForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
+  </mat-form-field>
 
-    
+  <!-- Email -->
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" [(ngModel)]="user.email" required />
+    <mat-error *ngIf="userForm.controls.email.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
 
-    <div class="items-center flex flex-row justify-center">
-      <button class="m-1 p-2" mat-raised-button color="primary" (click)="updateUser()" *ngIf="!(data.id=='')">Aceptar</button>
-      <button class="m-1 p-2" mat-raised-button color="primary" (click)="createUser()" *ngIf="data.id==''">Aceptar</button>
-      <button class="m-1 p-2" mat-raised-button color="primary" (click)="dialogRef.close()">cancelar</button>
-    </div>
-    
+  <!-- Contraseña (solo si es nuevo usuario) -->
+  <mat-form-field class="w-full" appearance="fill" *ngIf="data.id === ''">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" formControlName="password" />
+    <mat-error *ngIf="userForm.controls.password.invalid">Debe ingresar una contraseña</mat-error>
+  </mat-form-field>
+
+  <!-- Rol (solo si es nuevo usuario) -->
+  <mat-form-field class="w-full" appearance="fill" *ngIf="data.id === ''">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="role">
+      <mat-option value="user">Usuario</mat-option>
+      <mat-option value="admin">Administrador</mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.controls.role.invalid">Debe seleccionar un rol</mat-error>
+  </mat-form-field>
+
+  <!-- Botones -->
+  <div class="flex justify-center space-x-4 pt-4">
+    <button mat-raised-button color="primary" (click)="data.id === '' ? createUser() : updateUser()">
+      {{ data.id === '' ? 'Crear' : 'Guardar' }}
+    </button>
+    <button mat-stroked-button color="warn" (click)="dialogRef.close()">Cancelar</button>
+  </div>
 </form>

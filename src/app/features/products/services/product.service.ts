@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
+import { HttpClient, HttpErrorResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { catchError, Observable, throwError } from "rxjs"
-import { CreateProductRequest, Product, ProductsList, ProductStock, queryProducts, UpdateProductRequest } from "../models/product.model"
+import { CreateProductRequest, Product, ProductsList, queryProducts, UpdateProductRequest } from "../models/product.model"
 
 
 @Injectable({
@@ -25,14 +25,8 @@ export class ProductService {
       catchError(this.handleError)
     )
   }
-
-  GetProductWhitStock(id:string):Observable<ProductStock>{
-   return this.httpCliente.get<ProductStock>("http://localhost:3000/v1/products/stock/"+id).pipe(
-     catchError(this.handleError)
-   )
- }
   
-  GetAllProducts(query:queryProducts):Observable<ProductsList>{
+  GetProducts(query:queryProducts):Observable<ProductsList>{
     return this.httpCliente.get<ProductsList>("http://localhost:3000/v1/products",{ params:{page:query.page,limit:query.limit} }).pipe(
       catchError(this.handleError)
     )
@@ -43,14 +37,6 @@ export class ProductService {
       catchError(this.handleError)
     )
   }
-
-  UpdateProductStock(id:string, cantidad:number):Observable<any>{
-    return this.httpCliente.patch<any>("http://localhost:3000/v1/products/stock/"+id,{cantidad:cantidad}).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-
 
   DeleteProduct(id:string):Observable<void>{
     return this.httpCliente.delete<void>("http://localhost:3000/v1/products/"+id)

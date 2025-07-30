@@ -39,7 +39,7 @@ constructor(private productService: ProductService, private userService: UserSer
   }
 
   getProducts(){
-    this.productService.GetAllProducts(this.query).subscribe({
+    this.productService.GetProducts(this.query).subscribe({
       next:(productsData)=>{
         this.ProductList = productsData.results
         this.totalProducts = productsData.totalResults

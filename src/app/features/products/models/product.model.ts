@@ -25,7 +25,7 @@ export interface ProductsList{
 
 export interface ProductStock{
     product:Product,
-    stock:{cantidad:number}
+    stock:number
 }
 
 export interface queryProducts{
