@@ -1,0 +1,61 @@
+<div class="w-screen h-screen flex items-center justify-center bg-slate-100">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-xl p-8">
+    <h2 class="text-2xl font-semibold text-center mb-6">Crear cuenta</h2>
+
+    <form class="space-y-5" [formGroup]="signUpForm">
+     
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" required />
+        <mat-error *ngIf="signUpForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
+      </mat-form-field>
+
+     
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          placeholder="example@example.com"
+          required
+        />
+        <mat-error *ngIf="signUpForm.controls.email.invalid">{{ getErrorMessage() }} </mat-error>
+      </mat-form-field>
+
+      
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Mostrar/Ocultar contraseña'"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="signUpForm.controls.password.invalid">
+          Debe ingresar una contraseña
+        </mat-error>
+      </mat-form-field>
+
+     
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="w-full py-2 font-medium"
+        (click)="SignUp()"
+      >
+        Crear cuenta
+      </button>
+    </form>
+  </div>
+</div>

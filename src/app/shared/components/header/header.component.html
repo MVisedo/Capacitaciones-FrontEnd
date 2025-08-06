@@ -1,0 +1,41 @@
+<div class="bg-white flex justify-end p-1" >
+  <button class="m-2" mat-raised-button *ngIf="!userLoginOn" routerLink="/auth/sign-up" color="primary">Registrarse</button>
+
+  <button class="m-2" mat-raised-button *ngIf="!userLoginOn" routerLink="/auth/login" color="primary">Iniciar sesion</button>
+
+
+  <button mat-icon-button *ngIf="userLoginOn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <mat-menu #menu="matMenu">
+
+    <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="users/manage-users">
+      <mat-icon>assignment_ind</mat-icon>
+      <span>Usuarios</span>
+    </button>
+
+    <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="products/manage-products">
+      <mat-icon>ballot</mat-icon>
+      <span>Productos</span>
+    </button>
+   
+    <button mat-menu-item *ngIf="userLoginOn" routerLink="products/store">
+      <mat-icon>store</mat-icon>
+      <span>Tienda</span>
+    </button>
+    
+     <button mat-menu-item *ngIf="userLoginOn && userIsAdmin" routerLink="products/stock">
+      <mat-icon>local_shipping</mat-icon>
+      <span>Stock</span>
+    </button>
+
+    <button mat-menu-item *ngIf="userLoginOn" routerLink="auth/login" (click)="Logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Cerrar sesion</span>
+    </button>
+
+  </mat-menu>
+
+</div>
+

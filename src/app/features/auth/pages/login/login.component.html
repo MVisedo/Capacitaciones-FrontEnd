@@ -1,0 +1,32 @@
+
+<div class="w-screen h-screen flex justify-center items-center bg-slate-100">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-2xl font-semibold text-center mb-6">Iniciar Sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="Login()" class="space-y-5">
+
+      
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required />
+        <mat-error *ngIf="loginForm.controls.email.invalid">{{ getErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Mostrar/Ocultar contraseña'" type="button">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.controls.password.invalid">Debe ingresar la contraseña</mat-error>
+      </mat-form-field>
+
+      
+      <button mat-flat-button color="primary" type="submit" class="w-full py-2 font-medium">
+        Ingresar
+      </button>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<form class="w-full p-6 space-y-5" [formGroup]="productForm" enctype="multipart/form-data">
+  <h2 class="text-xl font-semibold text-center text-gray-800">
+    {{ data.id ? 'Actualizar producto' : 'Crear producto' }}
+  </h2>
+
+  <!-- Nombre -->
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" [(ngModel)]="product.name" />
+    <mat-error *ngIf="productForm.controls.name.invalid">Debe ingresar un nombre</mat-error>
+  </mat-form-field>
+
+  <!-- Descripción -->
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput rows="2" formControlName="descripcion" [(ngModel)]="product.descripcion"></textarea>
+    <mat-error *ngIf="productForm.controls.descripcion.invalid">Debe ingresar una descripción</mat-error>
+  </mat-form-field>
+
+  <!-- Imagen -->
+  <div class="w-full">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen</label>
+    <input type="file" (change)="onFileSelected($event)" />
+    <div *ngIf="product.imagen" class="mt-4">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Imagen actual</label>
+      <img [src]="'http://localhost:3000/' + product.imagen" alt="Imagen del producto" class="max-w-xs rounded shadow" />
+    </div>
+  </div>
+
+  <!-- Precio -->
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Precio</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="precio"
+      [(ngModel)]="product.precio"
+      min="0"
+      placeholder="0"
+    />
+    <mat-error *ngIf="productForm.controls.precio.invalid">Precio no válido</mat-error>
+  </mat-form-field>
+
+  <!-- Botones -->
+  <div class="flex justify-end gap-3 pt-4">
+    <button mat-stroked-button color="primary" (click)="dialogRef.close()">Cancelar</button>
+    
+    <button
+      mat-flat-button
+      color="primary"
+      *ngIf="!data.id"
+      (click)="createProduct()"
+      [disabled]="productForm.invalid"
+    >
+      Crear
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      *ngIf="data.id"
+      (click)="updateProduct()"
+      [disabled]="productForm.invalid"
+    >
+      Actualizar
+    </button>
+  </div>
+</form>

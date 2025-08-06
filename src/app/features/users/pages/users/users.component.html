@@ -1,0 +1,80 @@
+<div class="w-screen min-h-screen bg-slate-100 px-4 py-10 flex flex-col items-center">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8 underline">Gestión de Usuarios</h1>
+
+  <div class="w-full max-w-6xl bg-white rounded-2xl shadow-xl p-6 overflow-x-auto">
+    <table mat-table [dataSource]="UsersList" class="w-full mat-elevation-z8 border-separate border-spacing-y-2">
+
+      <!-- ID (colapsado si es muy largo) -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="text-left text-sm font-semibold text-gray-600 px-4 py-2">ID</th>
+        <td mat-cell *matCellDef="let user" class="px-4 py-3 bg-gray-50 " title="{{user.id}}">
+          {{ user.id }}
+        </td>
+      </ng-container>
+
+      <!-- Nombre -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="text-left text-sm font-semibold text-gray-600 px-4 py-2">Nombre</th>
+        <td mat-cell *matCellDef="let user" class="px-4 py-3 bg-gray-50">
+          {{ user.name }}
+        </td>
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="text-left text-sm font-semibold text-gray-600 px-4 py-2">Email</th>
+        <td mat-cell *matCellDef="let user" class="px-4 py-3 bg-gray-50">
+          <span class="truncate max-w-[20rem]" title="{{user.email}}">{{ user.email }}</span>
+          <mat-icon *ngIf="user.isEmailVerified" class="text-green-600 text-base">verified</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- Rol -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef class="text-left text-sm font-semibold text-gray-600 px-4 py-2">Rol</th>
+        <td mat-cell *matCellDef="let user" class="px-4 py-3 bg-gray-50">
+          {{ user.role }}
+        </td>
+      </ng-container>
+
+      <!-- Botones -->
+      <ng-container matColumnDef="buttons">
+        <th mat-header-cell *matHeaderCellDef ></th>
+        <td mat-cell *matCellDef="let user" class="px-4 py-3 bg-gray-50 ">
+          <div class="flex justify-end gap-2">
+            <button mat-icon-button color="primary" aria-label="Editar usuario" (click)="updatedUser(user.id)">
+              <mat-icon class="text-yellow-600">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" aria-label="Eliminar usuario" (click)="deleteUser(user.id)">
+              <mat-icon class="text-red-600">delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Header y fila -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-white"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Paginador -->
+    <mat-paginator
+      class="w-full max-w-6xl mt-4 flex justify-end"
+      [length]="totalUsers"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Seleccionar página">
+    </mat-paginator>
+  </div>
+
+  <!-- Botón Agregar -->
+  <div class="mt-8">
+    <button
+      mat-raised-button
+      color="primary"
+      class="px-6 py-2 rounded-md shadow-md text-white font-medium"
+      (click)="createUser()">
+      Agregar Usuario
+    </button>
+  </div>
+</div>
