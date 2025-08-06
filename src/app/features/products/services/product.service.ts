@@ -32,7 +32,7 @@ export class ProductService {
     )
   }
 
-  UpdateProduct(id:string, product:UpdateProductRequest):Observable<any>{
+  UpdateProduct(id:string, product:FormData):Observable<any>{
     return this.httpCliente.patch<any>("http://localhost:3000/v1/products/"+id,product).pipe(
       catchError(this.handleError)
     )
@@ -42,7 +42,7 @@ export class ProductService {
     return this.httpCliente.delete<void>("http://localhost:3000/v1/products/"+id)
   }
 
-  CreateProduct(product:CreateProductRequest):Observable<void>{
+  CreateProduct(product:FormData):Observable<void>{
     return this.httpCliente.post<void>("http://localhost:3000/v1/products",product).pipe(
       catchError(this.handleError)
     )

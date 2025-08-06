@@ -9,73 +9,94 @@ import { ProductService } from 'src/app/features/products/services/product.servi
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 
-
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent {
- product:Product = {name:"",descripcion:"",id:"",imagen:"",precio:0,user:""}
- 
+  product: Product = { name: "", descripcion: "", id: "", imagen: "", precio: 0, user: "" };
+  selectedFile: File | null = null; 
 
   productForm = this.formBuilder.group({
-    name: ['',[Validators.required]],
-    descripcion: ['',[Validators.required]],
-    imagen: ['',[Validators.required]],
-    precio: [0,[Validators.required,Validators.min(1)]]
-    
-  })
+    name: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
+    precio: [0, [Validators.required, Validators.min(1)]]
+  });
 
-  constructor(private productService:ProductService,private authService:AuthService, private formBuilder: FormBuilder,private _snackBar: MatSnackBar,public dialogRef:MatDialogRef<ProductsComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogConfig){
-  }
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<ProductsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogConfig
+  ) {}
+
   ngOnInit(): void {
-    if(this.data.id != undefined){
+    if (this.data.id != undefined) {
       this.productService.GetProduct(this.data.id).subscribe({
-        next: (productData) =>{
+        next: (productData) => {
           this.product = productData;
+          this.productForm.patchValue({
+            name: productData.name,
+            descripcion: productData.descripcion,
+            precio: productData.precio
+          });
         }
-      })
-    }else{
-      
-    }
-    
-  }
-  
-
-
-
-  updateProduct(){
-    if(this.productForm.valid){
-      this.productService.UpdateProduct(this.data.id+"",{name:this.productForm.get("name")?.value,descripcion:this.productForm.get("descripcion")?.value,imagen:this.productForm.get("imagen")?.value,precio:this.productForm.get("precio")?.value} as UpdateProductRequest).subscribe({
-        complete:()=>{
-          this._snackBar.open("Producto actualizado","Aceptar",{duration:3000})
-          this.dialogRef.close()
-        },
-        error: (errorData) =>{
-            this._snackBar.open(errorData.message,"Aceptar",{duration:2000})
-        }
-        
-        
-      })
-
+      });
     }
   }
 
-  createProduct(){
-    if(this.productForm.valid){
-      this.productService.CreateProduct({name:this.productForm.get("name")?.value,descripcion:this.productForm.get("descripcion")?.value,imagen:this.productForm.get("imagen")?.value,precio:this.productForm.get("precio")?.value,user:this.authService.currenUserData.getValue().id} as CreateProductRequest).subscribe({
-        complete:()=>{
-          this._snackBar.open("Producto creado","Aceptar",{duration:3000})
-          this.dialogRef.close()
-        },
-        error: (errorData) =>{
-            this._snackBar.open(errorData.message,"Aceptar",{duration:2000})
-        }
-      })
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
+  }
 
+  createProduct() {
+    if (this.productForm.valid && this.selectedFile) {
+      const formData = new FormData();
+      formData.append('name', this.productForm.get('name')?.value!);
+      formData.append('descripcion', this.productForm.get('descripcion')?.value!);
+      formData.append('precio', this.productForm.get('precio')?.value!.toString() || '0');
+      formData.append('user', this.authService.currenUserData.getValue().id);
+      formData.append('imagen', this.selectedFile); 
+
+      this.productService.CreateProduct(formData).subscribe({
+        complete: () => {
+          console.log(formData.get('name'));
+          this._snackBar.open("Producto creado", "Aceptar", { duration: 3000 });
+          this.dialogRef.close();
+        },
+        error: (errorData) => {
+          this._snackBar.open(errorData.message, "Aceptar", { duration: 2000 });
+        }
+      });
+    }
+  }
+
+  updateProduct() {
+    if (this.productForm.valid) {
+      const formData = new FormData();
+      formData.append('name', this.productForm.get('name')?.value!);
+      formData.append('descripcion', this.productForm.get('descripcion')?.value!);
+      formData.append('precio', this.productForm.get('precio')?.value!.toString() || '0');
+
+      if (this.selectedFile) {
+        formData.append('imagen', this.selectedFile);
+      }
+
+      this.productService.UpdateProduct(this.data.id + "", formData).subscribe({
+        complete: () => {
+          this._snackBar.open("Producto actualizado", "Aceptar", { duration: 3000 });
+          this.dialogRef.close();
+        },
+        error: (errorData) => {
+          this._snackBar.open(errorData.message, "Aceptar", { duration: 2000 });
+        }
+      });
+    }
   }
 }
-
-

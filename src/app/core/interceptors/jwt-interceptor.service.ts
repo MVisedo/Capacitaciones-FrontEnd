@@ -13,39 +13,56 @@ export class JwtInterceptorService implements HttpInterceptor {
   
   constructor(private authService:AuthService,private dialog: MatDialog,private router:Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+   
+    const isFormData = req.body instanceof FormData;
+   
     let token= this.authService.currenToken.value
 
-    if(token != ""){
-      req=req.clone(
-        {
-          setHeaders:{
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization':`Bearer ${token}`,
-          },
-          
-        }
-      )
-    }
-    
-    return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 403) {
-          const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Permiso denegado",mensaje:"Usted no esta autorizado para acceder a este recurso",aceptar:"Aceptar"},})
-          dialogRef.afterClosed().subscribe(()=>{
-            this.router.navigate(["/store"])
-          })
-        }
-        if (error.status === 401) {
-          const dialogRef = this.dialog.open(MensajeComponent, {data: {titulo:"Credenciales caducadas",mensaje:"Por favor vuelva a iniciar sesion",aceptar:"Aceptar"},})
-          dialogRef.afterClosed().subscribe(()=>{
-            this.authService.Logout();
-            this.router.navigate(["/login"])
-          })
-        }
+     let headersConfig: any = {
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
 
-        return throwError(() => error);
-      })
-    )
+  // Solo agregamos Content-Type si NO es FormData
+  if (!isFormData) {
+    headersConfig['Content-Type'] = 'application/json';
+  }
+
+  if (token !== '') {
+    req = req.clone({ setHeaders: headersConfig });
+  }
+
+  return next.handle(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 403) {
+        const dialogRef = this.dialog.open(MensajeComponent, {
+          data: {
+            titulo: "Permiso denegado",
+            mensaje: "Usted no está autorizado para acceder a este recurso",
+            aceptar: "Aceptar"
+          },
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigate(["/store"]);
+        });
+      }
+
+      if (error.status === 401) {
+        const dialogRef = this.dialog.open(MensajeComponent, {
+          data: {
+            titulo: "Credenciales caducadas",
+            mensaje: "Por favor vuelva a iniciar sesión",
+            aceptar: "Aceptar"
+          },
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.authService.Logout();
+          this.router.navigate(["/login"]);
+        });
+      }
+
+      return throwError(() => error);
+    })
+  );
   }
 }
